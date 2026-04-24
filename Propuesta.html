@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>💙</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ffdde1);
+      background-size: 400% 400%;
+      animation: fondo 10s ease infinite;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    @keyframes fondo {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+      color: white;
+      font-size: 2.8em;
+      margin-bottom: 40px;
+    }
+
+    .botones {
+      display: flex;
+      gap: 25px;
+      z-index: 2;
+    }
+
+    button {
+      padding: 14px 28px;
+      font-size: 18px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    button:hover {
+      transform: scale(1.1);
+    }
+
+    #siBtn {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    #noBtn {
+      background-color: #f44336;
+      color: white;
+    }
+
+    #respuesta {
+      margin-top: 40px;
+      font-size: 1.6em;
+      color: white;
+      min-height: 40px;
+      z-index: 2;
+    }
+
+    .corazon {
+      position: absolute;
+      bottom: -50px;
+      animation: subir linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes subir {
+      from {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
+    }
+
+    /* Pantalla final */
+    #pantallaFinal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #ff6a88, #ff99ac);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: white;
+      font-size: 2.5em;
+      text-align: center;
+      z-index: 10;
+      animation: aparecer 1s ease;
+    }
+
+    @keyframes aparecer {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>¿Quieres ser mi novia? 💙</h1>
+
+  <div class="botones">
+    <button id="siBtn" onclick="respuestaSi()">Sí 💖</button>
+    <button id="noBtn" onclick="respuestaNo()">No 😢</button>
+  </div>
+
+  <div id="respuesta"></div>
+
+  <!-- Pantalla final -->
+  <div id="pantallaFinal"></div>
+
+  <!-- Música -->
+  <audio id="musica" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+  <script>
+    const nombre = "lo sabía";
+
+    let corazonesActivos = false;
+
+    function respuestaSi() {
+      document.getElementById("respuesta").innerHTML = "💖 Me haces muy feliz 💖";
+
+      // Música
+      const musica = document.getElementById("musica");
+      musica.play();
+
+      // Corazones infinitos
+      if (!corazonesActivos) {
+        corazonesActivos = true;
+        setInterval(crearCorazon, 200);
+      }
+
+      // Pantalla final después de 1 segundo
+      setTimeout(() => {
+        const final = document.getElementById("pantallaFinal");
+        final.style.display = "flex";
+        final.innerHTML = "💖 " + nombre + " 💖<br>Ahora somos novios 😄";
+      }, 1000);
+    }
+
+    function respuestaNo() {
+      document.getElementById("respuesta").innerHTML = "😌 No pasa nada, seguiré siendo el mismo contigo";
+    }
+
+    function crearCorazon() {
+      const corazon = document.createElement("div");
+      corazon.classList.add("corazon");
+      corazon.innerHTML = "💖";
+
+      corazon.style.left = Math.random() * window.innerWidth + "px";
+      corazon.style.fontSize = (Math.random() * 20 + 20) + "px";
+      corazon.style.animationDuration = (Math.random() * 3 + 3) + "s";
+
+      document.body.appendChild(corazon);
+
+      setTimeout(() => {
+        corazon.remove();
+      }, 6000);
+    }
+  </script>
+
+</body>
+</html>
